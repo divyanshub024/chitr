@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatefulWidget {
@@ -23,8 +24,8 @@ class _CustomCardState extends State<CustomCard> {
       child: Stack(
         children: <Widget>[
           Container(
-            child: Image.network(
-              widget.url,
+            child: CachedNetworkImage(
+              imageUrl: widget.url,
               fit: BoxFit.cover,
             ),
             width: double.infinity,
