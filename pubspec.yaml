@@ -29,6 +29,7 @@ dependencies:
   share: ^0.6.1+1
   dio: ^2.1.12
   path_provider: ^1.1.2
+  cached_network_image: ^1.1.0
 
 dev_dependencies:
   flutter_test:
