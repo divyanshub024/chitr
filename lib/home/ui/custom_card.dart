@@ -24,10 +24,12 @@ class _CustomCardState extends State<CustomCard> {
       child: Stack(
         children: <Widget>[
           Container(
-            child: CachedNetworkImage(
-              imageUrl: widget.url,
-              fit: BoxFit.cover,
-            ),
+            child: (widget.url != null)
+                ? CachedNetworkImage(
+                    imageUrl: widget.url,
+                    fit: BoxFit.cover,
+                  )
+                : null,
             width: double.infinity,
             height: double.infinity,
           ),
@@ -49,13 +51,13 @@ class _CustomCardState extends State<CustomCard> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  widget.title,
+                  (widget.title != null) ? widget.title : '',
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    widget.description,
+                    (widget.description != null) ? widget.description : '',
                     maxLines: 1,
                     style: TextStyle(fontSize: 16.0),
                   ),

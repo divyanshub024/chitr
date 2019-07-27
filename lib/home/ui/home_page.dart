@@ -1,5 +1,6 @@
 import 'package:chitr/home/model/ImageModel.dart';
 import 'package:chitr/image/ui/image_page.dart';
+import 'package:chitr/search/search.dart';
 import 'package:chitr/util/api_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
@@ -13,9 +14,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<PreloadPageController> controllers = [];
+  List<Hits> hits;
 
   @override
   void initState() {
+    _loadImages();
     controllers = [
       PreloadPageController(viewportFraction: 0.6, initialPage: 3),
       PreloadPageController(viewportFraction: 0.6, initialPage: 3),
@@ -35,55 +38,64 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  _loadImages() async {
+    var imageModel = await ApiProvider().getRandomImages(25);
+    hits = imageModel.hits;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       backgroundColor: Theme.of(context).backgroundColor,
-      body: FutureBuilder(
-        future: ApiProvider().getRandomImages(25),
-        builder: (context, AsyncSnapshot<ImageModel> snapshot) {
-          if (snapshot.hasData) {
-            return PreloadPageView.builder(
-              controller:
-                  PreloadPageController(viewportFraction: 0.7, initialPage: 3),
-              itemCount: 5,
-              preloadPagesCount: 5,
-              itemBuilder: (context, mainIndex) {
-                return PreloadPageView.builder(
-                  itemCount: 5,
-                  preloadPagesCount: 5,
-                  controller: controllers[mainIndex],
-                  scrollDirection: Axis.vertical,
-                  physics: ClampingScrollPhysics(),
-                  onPageChanged: (page) {
-                    _animatePage(page, mainIndex);
-                  },
-                  itemBuilder: (context, index) {
-                    var hitIndex = (mainIndex * 5) + index;
-                    var hit = snapshot.data.hits[hitIndex];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ImagePage(model: hit),
-                          ),
-                        );
-                      },
-                      child: CustomCard(
-                        title: hit.user,
-                        description: hit.tags,
-                        url: hit.webformatURL,
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
+      body: PreloadPageView.builder(
+        controller:
+            PreloadPageController(viewportFraction: 0.7, initialPage: 3),
+        itemCount: 5,
+        preloadPagesCount: 5,
+        itemBuilder: (context, mainIndex) {
+          return PreloadPageView.builder(
+            itemCount: 5,
+            preloadPagesCount: 5,
+            controller: controllers[mainIndex],
+            scrollDirection: Axis.vertical,
+            physics: ClampingScrollPhysics(),
+            onPageChanged: (page) {
+              _animatePage(page, mainIndex);
+            },
+            itemBuilder: (context, index) {
+              var hitIndex = (mainIndex * 5) + index;
+              var hit;
+              if (hits != null) {
+                hit = hits[hitIndex];
+              }
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImagePage(model: hit),
+                    ),
+                  );
+                },
+                child: CustomCard(
+                  title: hit?.user,
+                  description: hit?.tags,
+                  url: hit?.webformatURL,
+                ),
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.search),
+        onPressed: () {
+          showSearch(
+            context: context,
+            delegate: Search(),
+          );
         },
       ),
     );
