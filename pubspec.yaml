@@ -30,7 +30,6 @@ dependencies:
   dio: ^2.1.12
   path_provider: ^1.1.2
   cached_network_image: ^1.1.0
-  shimmer: ^1.0.0
   shared_preferences: ^0.5.3+4
 
 dev_dependencies:
