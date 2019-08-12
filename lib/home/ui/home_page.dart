@@ -1,6 +1,6 @@
 import 'package:chitr/home/model/ImageModel.dart';
 import 'package:chitr/image/ui/image_page.dart';
-import 'package:chitr/search/search.dart';
+import 'package:chitr/search/searchPage.dart';
 import 'package:chitr/util/api_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
@@ -72,12 +72,17 @@ class _HomePageState extends State<HomePage> {
               }
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ImagePage(model: hit),
-                    ),
-                  );
+                  if (hits != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ImagePage(
+                          model: hit,
+                          imageBoxFit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }
                 },
                 child: CustomCard(
                   title: hit?.user,
@@ -92,10 +97,8 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.search),
         onPressed: () {
-          showSearch(
-            context: context,
-            delegate: Search(),
-          );
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SearchPage()));
         },
       ),
     );

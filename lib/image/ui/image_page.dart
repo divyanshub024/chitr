@@ -5,12 +5,12 @@ import 'package:chitr/home/model/ImageModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share/share.dart';
 
 class ImagePage extends StatefulWidget {
   final Hits model;
-  ImagePage({this.model});
+  final BoxFit imageBoxFit;
+  ImagePage({this.model, this.imageBoxFit});
 
   @override
   _ImagePageState createState() => _ImagePageState();
@@ -49,11 +49,10 @@ class _ImagePageState extends State<ImagePage>
                   } else {
                     _controller.forward();
                   }
-                  print('onclick');
                 },
                 child: CachedNetworkImage(
-                  imageUrl: widget.model.webformatURL,
-                  fit: BoxFit.cover,
+                  imageUrl: widget.model.largeImageURL,
+                  fit: widget.imageBoxFit,
                 ),
               ),
             ),
@@ -88,7 +87,9 @@ class _ImagePageState extends State<ImagePage>
                             padding: const EdgeInsets.only(left: 8.0),
                             child: IconButton(
                               icon: Icon(Icons.arrow_back),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                             ),
                           ),
                           Visibility(
@@ -188,7 +189,6 @@ class _ImagePageState extends State<ImagePage>
     setState(() {
       _isLoading = true;
     });
-    var dir = await getTemporaryDirectory();
     var file =
         await DefaultCacheManager().getSingleFile(widget.model.largeImageURL);
     try {
