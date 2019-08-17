@@ -1,6 +1,17 @@
 # Chitr: Wallpapers and Backgrounds
 <img src="https://github.com/divyanshub024/chitr/blob/master/art/banner.png"/>
 
+Chitr is a Wallpapers and Backgrounds app.
+ - Find all your wallpapers and backgrounds in one place.
+ - Easily set any image as a wallpaper.
+ - Choose between variety of wallpapers.
+ - Share your favourite images with your friends.
+ - Get more than 1 million stunning images from Pixabay.
+ - Discover beautiful photos from different genre.
+
+## Download 
+<a href='https://play.google.com/store/apps/details?id=com.divyanshu.chitr&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height = 150/></a>
+
 ## Screenshots
 <img src="https://github.com/divyanshub024/chitr/blob/master/art/screenshot%203.png" width = 240/> <img src="https://github.com/divyanshub024/chitr/blob/master/art/screenshot%206.png" width = 240/> <img src="https://github.com/divyanshub024/chitr/blob/master/art/screenshot%205.png" width = 240/>
 
