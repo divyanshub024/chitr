@@ -1,4 +1,4 @@
-# Chitr: Wallpapers and Backgrounds
+# Chitr: Wallpapers and Backgrounds [![Codemagic build status](https://api.codemagic.io/apps/5d51af45a6267c0018c7a1a9/5d51af45a6267c0018c7a1a8/status_badge.svg)](https://codemagic.io/apps/5d51af45a6267c0018c7a1a9/5d51af45a6267c0018c7a1a8/latest_build)
 <img src="https://github.com/divyanshub024/chitr/blob/master/art/banner.png"/>
 
 Chitr is a Wallpapers and Backgrounds app.
