@@ -1,4 +1,4 @@
-# Chitr: Wallpapers and Backgrounds
+# Chitr: Wallpapers and Backgrounds 
 <img src="https://github.com/divyanshub024/chitr/blob/master/art/banner.png"/>
 
 Chitr is a Wallpapers and Backgrounds app.
