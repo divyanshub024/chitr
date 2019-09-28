@@ -52,14 +52,21 @@ class _CustomCardState extends State<CustomCard> {
               children: <Widget>[
                 Text(
                   (widget.title != null) ? widget.title : '',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     (widget.description != null) ? widget.description : '',
                     maxLines: 1,
-                    style: TextStyle(fontSize: 16.0),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],

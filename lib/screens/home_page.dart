@@ -1,11 +1,12 @@
-import 'package:chitr/home/model/ImageModel.dart';
-import 'package:chitr/image/ui/image_page.dart';
-import 'package:chitr/search/searchPage.dart';
+import 'package:chitr/model/ImageModel.dart';
+import 'package:chitr/screens/image_page.dart';
+import 'package:chitr/screens/search_page.dart';
+import 'package:chitr/screens/settings_page.dart';
 import 'package:chitr/util/api_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
-import 'custom_card.dart';
+import '../widget/custom_card.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _loadImages() async {
-    var imageModel = await ApiProvider().getRandomImages(25);
+    var imageModel = await ApiProvider().getImages(25);
     hits = imageModel.hits;
     setState(() {});
   }
@@ -94,12 +95,66 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search),
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SearchPage()));
-        },
+      floatingActionButton: Container(
+        height: 56.0,
+        child: Card(
+//        height: 56.0,
+//        decoration: BoxDecoration(
+//          color: Theme.of(context).accentColor,
+//          borderRadius: BorderRadius.circular(50.0),
+//        ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          color: Theme.of(context).accentColor,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Theme.of(context).accentIconTheme.color,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: Container(
+                  width: 1,
+                  height: double.infinity,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Theme.of(context).accentIconTheme.color,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SettingsPage(),
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

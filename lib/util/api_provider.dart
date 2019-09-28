@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:chitr/home/model/ImageModel.dart';
+import 'package:chitr/model/ImageModel.dart';
 import 'package:chitr/values/strings.dart';
 import 'package:http/http.dart' as http;
 
 class ApiProvider {
-  Future<ImageModel> getRandomImages(int count) async {
+  Future<ImageModel> getImages(int count) async {
     final response = await http.get(
         '${apiUrl}editors_choice=true&per_page=$count&orientation=vertical');
     if (response.statusCode == 200) {

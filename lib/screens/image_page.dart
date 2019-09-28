@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chitr/home/model/ImageModel.dart';
+import 'package:chitr/model/ImageModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -66,14 +66,14 @@ class _ImagePageState extends State<ImagePage>
                       height: 64.0,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.black,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(8.0),
                           bottomRight: Radius.circular(8.0),
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black,
+                            color: Theme.of(context).primaryColor,
                             blurRadius: 5.0,
                           ),
                         ],
@@ -110,14 +110,14 @@ class _ImagePageState extends State<ImagePage>
                     child: Container(
                       height: 64.0,
                       decoration: BoxDecoration(
-                        color: Colors.black,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(16.0),
                           topRight: Radius.circular(16.0),
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black,
+                            color: Theme.of(context).primaryColor,
                             blurRadius: 5.0,
                           ),
                         ],

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chitr/home/model/ImageModel.dart';
-import 'package:chitr/image/ui/image_page.dart';
+import 'package:chitr/model/ImageModel.dart';
+import 'package:chitr/screens/image_page.dart';
 import 'package:chitr/util/api_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +29,7 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           title: TextField(
+            autofocus: true,
             controller: _searchController,
             textInputAction: TextInputAction.search,
             decoration: InputDecoration(

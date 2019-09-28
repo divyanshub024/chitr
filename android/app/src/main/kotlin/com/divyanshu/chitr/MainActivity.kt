@@ -22,11 +22,9 @@ class MainActivity: FlutterActivity() {
     GeneratedPluginRegistrant.registerWith(this)
 
     MethodChannel(flutterView, CHANNEL).setMethodCallHandler { call, result ->
-      print("call ${call.method}")
       if (call.method == "setWallpaper") {
         val arguments = call.arguments as ArrayList<*>
         val setWallpaper = setWallpaper(arguments[0] as String, applicationContext, arguments[1] as Int)
-        //int setWallpaper = getBatteryLevel();
 
         if (setWallpaper == 0) {
           result.success(setWallpaper)
