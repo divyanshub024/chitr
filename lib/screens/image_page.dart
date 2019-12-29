@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_downloader/image_downloader.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 
 class ImagePage extends StatefulWidget {
@@ -154,12 +156,9 @@ class _ImagePageState extends State<ImagePage>
                                     print('share');
                                   },
                                 ),
-                                Visibility(
-                                  visible: false,
-                                  child: IconButton(
-                                    icon: Icon(Icons.file_download),
-                                    onPressed: () {},
-                                  ),
+                                IconButton(
+                                  icon: Icon(Icons.file_download),
+                                  onPressed: downloadImage,
                                 )
                               ],
                             )
@@ -190,7 +189,7 @@ class _ImagePageState extends State<ImagePage>
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  'Set a wallpaper',
+                  'Set as wallpaper',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -248,14 +247,55 @@ class _ImagePageState extends State<ImagePage>
     } on PlatformException catch (e) {
       print("Failed to Set Wallpaer: '${e.message}'.");
     }
+    showToast("Wallpaper set successfully");
+    Navigator.pop(context);
+  }
+
+  void showToast(String msg) {
     Fluttertoast.showToast(
-        msg: "Wallpaper set successfully",
+        msg: msg,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 1,
         backgroundColor: Colors.white,
         textColor: Colors.black,
         fontSize: 16.0);
-    Navigator.pop(context);
+  }
+
+  void downloadImage() async {
+    try {
+      PermissionStatus status = await PermissionHandler()
+          .checkPermissionStatus(PermissionGroup.storage);
+
+      if (status == PermissionStatus.granted) {
+        try {
+          showToast('Check the notification to see progress.');
+
+          var imageId = await ImageDownloader.downloadImage(
+              widget.model.largeImageURL,
+              destination: AndroidDestinationType.directoryDownloads);
+          if (imageId == null) {
+            return;
+          }
+        } on PlatformException catch (error) {
+          print(error);
+        }
+      } else {
+        askForPermission();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void askForPermission() async {
+    await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+    PermissionStatus status = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.storage);
+    if (status == PermissionStatus.granted) {
+      downloadImage();
+    } else {
+      showToast('Please grant storage permission.');
+    }
   }
 }
